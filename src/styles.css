@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #ffffff;
+  --color-bg-soft: #f9fafb;
+  --color-border: #e5e7eb;
+  --color-fg: #0a0a0a;
+  --color-muted: #6b7280;
+  --color-secondary: #374151;
+
+  --color-accent: #0991b2;
+  --color-accent-mid: #06b6d4;
+  --color-accent-bg: #e6f7fa;
+  --color-accent-deep: #0e7490;
+  --color-accent-ring: rgba(9, 145, 178, 0.1);
+  --color-accent-border-md: rgba(9, 145, 178, 0.25);
+
+  --color-em: #059669;
+  --color-em-light: #f0fdf4;
+  --color-am: #d97706;
+  --color-am-light: #fff7ed;
+  --color-danger: #dc2626;
+  --color-danger-light: #fef2f2;
+
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-150: #eceef0;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  --font-sans:
+    "IBM Plex Sans KR", "Inter Tight", "Pretendard Variable", "Pretendard",
+    system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display:
+    "IBM Plex Sans KR", "Inter Tight", "Pretendard Variable", "Pretendard",
+    system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", "D2Coding", monospace;
+}
+
+:root {
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #1a1a1a;
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+}
+
+@layer base {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #0991b2 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.poster-stage {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(9, 145, 178, 0.08), transparent 60%),
+    #1a1a1a;
+}
+
+.poster-frame {
+  position: relative;
+  width: 930mm;
+  height: 1000mm;
+  flex-shrink: 0;
+  background: #ffffff;
+  color: var(--color-fg);
+  overflow: hidden;
+  box-shadow: 0 0 80px rgba(0, 0, 0, 0.5);
+  transform-origin: top center;
+}
+
+@media screen {
+  .poster-stage[data-fit="auto"] .poster-frame {
+    transform: scale(var(--poster-scale, 0.32));
+  }
+}
+
+.print-only {
+  display: none;
+}
+
+.screen-only {
+  display: block;
+}
+
+.toolbar {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 100;
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.toolbar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.toolbar button:hover {
+  background: rgba(9, 145, 178, 0.4);
+  border-color: rgba(9, 145, 178, 0.7);
+}
+
+.toolbar button.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent-deep);
+}
+
+.poster-info {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  z-index: 100;
+  padding: 6px 12px;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@page {
+  size: 930mm 1000mm;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body {
+    background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .toolbar,
+  .poster-info {
+    display: none !important;
+  }
+
+  .poster-stage {
+    padding: 0 !important;
+    background: #ffffff !important;
+    min-height: 0 !important;
+    display: block !important;
+  }
+
+  .poster-stage[data-fit="auto"] .poster-frame {
+    transform: none !important;
+  }
+
+  .poster-frame {
+    box-shadow: none !important;
+    width: 930mm !important;
+    height: 1000mm !important;
+    page-break-after: avoid;
+  }
+
+  .screen-card {
+    box-shadow: none !important;
+  }
+
+  .screen-card-media {
+    background: #ffffff !important;
+  }
+
+  /* Chromium headless PDF 에서 `background-clip: text` +
+   * `-webkit-text-fill-color: transparent` 트릭이 일부 글리프에서
+   * 클리핑되지 않고 bounding box 가 솔리드 색 박스로 칠해지는
+   * 렌더링 버그가 있다 (예: HeroBlock 헤드라인의 "도" 글자).
+   * 인쇄/PDF 에서는 솔리드 컬러로 폴백해 안전하게 렌더. */
+  .gradient-text {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: initial !important;
+    color: var(--color-accent-mid) !important;
+  }
+
+  .hero-number {
+    color: rgba(9, 145, 178, 0.18) !important;
+    text-shadow: none !important;
+  }
+}

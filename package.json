@@ -1,0 +1,33 @@
+{
+  "name": "mefit-poster",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "bun@1.3.10",
+  "scripts": {
+    "dev": "vite --port 5174 --host",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --port 5175 --host",
+    "export:pdf": "node scripts/export-pdf.mjs",
+    "export:png": "node scripts/export-png.mjs",
+    "export:a4": "node scripts/export-a4.mjs",
+    "export": "bun run build && bun run export:pdf && bun run export:png && bun run export:a4"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "lucide-react": "^0.510.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.1",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "pdf-lib": "^1.17.1",
+    "playwright": "^1.50.0",
+    "tailwindcss": "^4.2.1",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.1"
+  }
+}
